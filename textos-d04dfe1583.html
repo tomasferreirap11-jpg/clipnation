@@ -1,0 +1,32 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>ClipNation · textos</title><style>
+body{margin:0;background:#0e0f13;color:#e9eaee;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:14px 16px;background:#171920;border-bottom:1px solid #2a2e39;position:sticky;top:0}
+h1{font-size:17px;margin:0}h1 span{color:#9b6bff}.sub{color:#9097a6;font-size:12.5px;margin-top:2px}
+main{padding:12px 16px;display:flex;flex-direction:column;gap:12px;max-width:640px;margin:0 auto}
+h2{font-size:12px;color:#9097a6;text-transform:uppercase;letter-spacing:.6px;margin:10px 0 0}
+.card{background:#171920;border:1px solid #2a2e39;border-radius:12px;padding:12px}
+.top{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:#9097a6}
+.cap{white-space:pre-wrap;background:#1f222b;border-radius:8px;padding:10px;margin:8px 0;font-size:14px}
+button{width:100%;padding:14px;border:0;border-radius:10px;background:#9b6bff;color:#fff;font:600 16px system-ui;cursor:pointer}
+button.done{background:#2fd38a}.empty{color:#9097a6;text-align:center;padding:40px 0}
+</style></head><body>
+<header><h1>Clip<span>Nation</span> · textos</h1>
+<div class="sub">Abre o rascunho na app do TikTok, copia aqui o texto e cola na descrição. Atualizado: 17/11 23:32</div></header>
+<main id="list"></main>
+<script>
+const ITEMS = [{"streamer": "kaicenat", "caption": "Kaicenat's Human Jackhammer 2.0\n\nGTA IV: Go, Go, Go!\n🎥 Clip: @kaicenat (Twitch)\n#kaicenat #GrandTheftAutoIV #GTAIV #twitch", "sent": true, "when": "2026-11-17 22:53", "state": "publicado"}, {"streamer": "kaicenat", "caption": "Kaicenat: LET ME SEE YOUR CAR NOW 🔥 #kaicenat #kaicenatclips #twitchclips #gta6 #fyp\n🎥 @kaicenat", "sent": true, "when": "2026-11-17 22:53", "state": "publicado"}, {"streamer": "kaicenat", "caption": "Kai vents about haters\n\nStreamers, deals with negativity\n🎥 Clip: @kaicenat (Twitch)\n#kaicenat #GrandTheftAutoIV #haters #venting", "sent": true, "when": "2026-11-17 22:53", "state": "publicado"}, {"streamer": "move_mind", "caption": "Última live antes do GTA!\n\n3-0 contra o Top, confiança no jogo!\n🎥 Clip: @move_mind (Twitch)\n#movemind #GTA #Stream #twitch", "sent": true, "when": "2026-11-17 22:53", "state": "publicado"}, {"streamer": "kaicenat", "caption": "First door pick up 😲\n\nWhat's next in Kai's crazy GTA VI journey? 🚀\n🎥 Clip: @kaicenat (Twitch)\n#kaicenat #gta6 #reaction #pickup #twitchclips #gtavi", "sent": true, "when": "2026-11-17 22:53", "state": "publicado"}, {"streamer": "kaicenat", "caption": "Kai calls out a Faker\n\nStream analysis meets reality check.\n🎥 Clip: @kaicenat (Twitch)\n#kaicenat #GTAV #GTA5 #StreamAnalysis", "sent": true, "when": "2026-11-17 22:53", "state": "publicado"}, {"streamer": "move_mind", "caption": "Domão já foi polícia?! 😳 #movemind #movemindclips #portugal #fyp\n🎥 @move_mind", "sent": true, "when": "2026-11-17 22:29", "state": "na caixa de entrada da app"}, {"streamer": "windoh", "caption": "WINDOH NÃO GOSTOU DO 12C 🤔 #windoh #windohclips #portugal #fyp\n🎥 @windoh", "sent": false, "when": "2026-11-17 22:28", "state": "publicado"}];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const card=(c,i)=>`<div class="card"><div class="top"><span>@${esc(c.streamer)}</span><span>${esc(c.when)}</span></div>
+ <div class="cap">${esc(c.caption)}</div><button data-i="${i}">Copiar texto</button></div>`;
+const sent=ITEMS.map((c,i)=>[c,i]).filter(x=>x[0].sent), next=ITEMS.map((c,i)=>[c,i]).filter(x=>!x[0].sent);
+document.getElementById("list").innerHTML = ITEMS.length ?
+ (sent.length?"<h2>Na tua app do TikTok</h2>"+sent.map(x=>card(...x)).join(""):"") +
+ (next.length?"<h2>A caminho</h2>"+next.map(x=>card(...x)).join(""):"") : '<div class="empty">Ainda não há textos.</div>';
+document.getElementById("list").onclick=async e=>{const b=e.target.closest("button");if(!b)return;
+ const t=ITEMS[+b.dataset.i].caption;let ok=false;
+ try{await navigator.clipboard.writeText(t);ok=true}catch(err){const ta=document.createElement("textarea");ta.value=t;
+  document.body.appendChild(ta);ta.select();try{ok=document.execCommand("copy")}catch(e2){}ta.remove()}
+ b.textContent=ok?"Copiado ✓ — cola no TikTok":"Mantém o dedo no texto para copiar";b.classList.toggle("done",ok)};
+</script></body></html>
